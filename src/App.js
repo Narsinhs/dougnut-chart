@@ -76,7 +76,7 @@ function App() {
                         ((100 * (context.parsed || 0)) / total).toFixed(2) :
                         ((100 * (context.parsed || 0)) / count).toFixed(2)
 
-                      label += ": " + percentage + "%";
+                      label += `: ${context.parsed} (${percentage}%)`
                       return label;
                     },
                   },
