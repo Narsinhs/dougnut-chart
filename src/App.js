@@ -3,8 +3,6 @@ import { Doughnut } from "react-chartjs-2";
 import "./App.css";
 import data from "./data.json"
 import { addDynamicColor, calculateTotal, htmlLegendPlugin } from "./helper";
-
-
 addDynamicColor(data);
 const total = calculateTotal(data)
 function App() {
@@ -58,7 +56,7 @@ function App() {
         <div id="js-legend" className="chart-legend"></div>
       </div>
     </>
-  ); 
+  );
 }
 
 export default App;
