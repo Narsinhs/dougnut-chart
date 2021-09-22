@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Doughnut } from "./modules/react-chartjs-2/dist/index";
+import { Doughnut } from "react-chartjs-2";
 import "./App.css";
 import data from "./data.json"
 import { addDynamicColor, calculateTotal, htmlLegendPlugin } from "./helper";
