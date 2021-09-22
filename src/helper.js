@@ -97,7 +97,7 @@ export const htmlLegendPlugin = {
           }
         }
       }
-      let percentage = count === 0 ?
+      let percentage = totalCount === 0 ?
         ((100 * (chartData[item.index] || 0)) / totalCalculate).toFixed(2) :
         ((100 * (chartData[item.index] || 0)) / totalCount).toFixed(2)
       text = document.createTextNode(`${item.text}: ${chartData[item.index]} (${percentage})%`)
