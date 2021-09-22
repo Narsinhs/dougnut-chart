@@ -12,7 +12,7 @@ function App() {
   return (
     <>
       <div className="header">
-        <h1 className="title">Pie Chart</h1>
+        <h1 className="title">Doughnut Chart</h1>
       </div>
       <div style={{ display: "flex" }}>
         <div style={{ width: "300px" }}>
