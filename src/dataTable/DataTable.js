@@ -1,5 +1,10 @@
 import BootstrapTable from 'react-bootstrap-table-next';
-import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
+// import "./styles.css";
+
+import "bootstrap/dist/css/bootstrap.css";
+import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
+
+import paginationFactory from 'react-bootstrap-table2-paginator';
 import { getDataForDataTable } from '../dataHelper';
 const columns = [{
     dataField: 'id',
@@ -23,7 +28,8 @@ const DataTable = ({notSelectedLabels}) => {
     return (
         <div>
             <BootstrapTable
-                bootstrap4
+                // bootstrap4
+                pagination={ paginationFactory({sizePerPage: 10,sizePerPageList:[10,12]}) }
                 keyField="id"
                 data={getDataForDataTable(notSelectedLabels)}
                 columns={columns}

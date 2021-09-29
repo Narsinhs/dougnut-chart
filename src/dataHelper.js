@@ -1,17 +1,6 @@
 import rawData from "./updatedData.json"
 
-const getYearsLabels = () => {
-    let rawMonthName = ['January', 'Febrary', 'March', 'April', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
-    let month = new Date().getMonth() - 1;
-    let labels = [];
-    for (let i = month; i < rawMonthName.length; i++) {
-        labels.push(rawMonthName[i]);
-    }
-    for (let i = 0; i < month; i++) {
-        labels.push(rawMonthName[i]);
-    }
-    return labels;
-}
+const colorData = {};
 const createDynamicColors = function () {
     const r = Math.floor(Math.random() * 255);
     const g = Math.floor(Math.random() * 255);
@@ -33,7 +22,10 @@ export const transformRawDataToPieChart = () => {
     Object.keys(calculation).map((eachKey) => {
         labels.push(eachKey);
         dataSet.push(calculation[eachKey]);
-        dynamicColors.push(createDynamicColors());
+        if (!colorData.hasOwnProperty(eachKey)) {
+            colorData[eachKey] = createDynamicColors();
+        }
+        dynamicColors.push(colorData[eachKey])
     })
 
     return {
@@ -45,7 +37,7 @@ export const transformRawDataToPieChart = () => {
     }
 }
 export const getMonthBarChartData = (dataKey) => {
-    let rawMonthName = ['January', 'Febrary', 'March', 'April', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
+    let rawMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     let labels = [];
     let data = [];
     let dataLabels = {};
@@ -56,9 +48,9 @@ export const getMonthBarChartData = (dataKey) => {
             dataLabelsArray[each.operation] = [];
         }
     })
-    for (let i = 0; i < 30; i++) {
+    for (let i = 29; i >= 0; i--) {
         let myDate = new Date(new Date().setDate(new Date().getDate() - i));
-        labels.push(`${myDate.getDate()} ${rawMonthName[myDate.getMonth() - 1]}`)
+        labels.push(`${myDate.getDate()} ${rawMonthName[myDate.getMonth() - 1]} ${myDate.getFullYear()}`)
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
@@ -77,7 +69,7 @@ export const getMonthBarChartData = (dataKey) => {
         datasets: Object.keys(dataLabelsArray).map((eachKeys) => {
             return {
                 label: eachKeys,
-                backgroundColor: createDynamicColors(),
+                backgroundColor: colorData[eachKeys],
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 data: dataLabelsArray[eachKeys]
@@ -86,7 +78,7 @@ export const getMonthBarChartData = (dataKey) => {
     };
 }
 export const getYearBarChartData = (dataKey) => {
-    let rawMonthName = ['January', 'Febrary', 'March', 'April', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
+    let rawMonthName = ['January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
     let month = new Date().getMonth() - 1;
     let labels = [];
     let dataLabels = {};
@@ -97,27 +89,15 @@ export const getYearBarChartData = (dataKey) => {
             dataLabelsArray[each.operation] = [];
         }
     })
-    for (let i = month; i >= 0; i--) {
-        labels.push(rawMonthName[i]);
+    for (let i = 11; i >= 0; i--) {
+        let myDate = new Date(new Date(new Date().setDate(1)).setMonth(new Date().getMonth() - i));
+        labels.push(`${rawMonthName[myDate.getMonth()]} ${myDate.getFullYear()}`);
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
-            if (transDate.getMonth() === i) {
-                if (countObject.hasOwnProperty(eachData.operation)) {
-                    countObject[eachData.operation] = countObject[eachData.operation] + 1;
-                }
-            }
-        })
-        Object.keys(countObject).map((eachKey) => {
-            dataLabelsArray[eachKey].push(countObject[eachKey]);
-        })
-    }
-    for (let i = 11; i > month; i--) {
-        labels.push(rawMonthName[i]);
-        let countObject = { ...dataLabels };
-        rawData.data.map((eachData) => {
-            let transDate = new Date(eachData.transDate);
-            if (transDate.getMonth() === i) {
+            let year = transDate.getFullYear()
+            let month = transDate.getMonth() - 1;
+            if (month === i && year === myDate.getFullYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
@@ -132,7 +112,7 @@ export const getYearBarChartData = (dataKey) => {
         datasets: Object.keys(dataLabelsArray).map((eachKeys) => {
             return {
                 label: eachKeys,
-                backgroundColor: createDynamicColors(),
+                backgroundColor: colorData[eachKeys],
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 data: dataLabelsArray[eachKeys]
@@ -141,7 +121,7 @@ export const getYearBarChartData = (dataKey) => {
     };
 }
 export const getWeekBarChartData = (dataKey) => {
-    let rawDayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thrusday', 'Friday', 'Saturday', 'Sunday'];
+    let rawDayNames = ['Sun', 'Mon', 'Tues', 'Wednes', 'Thrus', 'Fri', 'Sat'];
     let labels = [];
     let dataLabels = {};
     let dataLabelsArray = {};
@@ -151,9 +131,11 @@ export const getWeekBarChartData = (dataKey) => {
             dataLabelsArray[each.operation] = [];
         }
     })
-    for (let i = 0; i < 7; i++) {
+    for (let i = 6; i >= 0; i--) {
         let myDate = new Date(new Date().setDate(new Date().getDate() - i));
-        labels.push(rawDayNames[myDate.getDay()]);
+        let label = rawDayNames[myDate.getDay()];
+        label = `${label} (${myDate.getDate()}/${myDate.getMonth()}/${myDate.getFullYear()})`
+        labels.push(label);
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
@@ -172,7 +154,7 @@ export const getWeekBarChartData = (dataKey) => {
         datasets: Object.keys(dataLabelsArray).map((eachKeys) => {
             return {
                 label: eachKeys,
-                backgroundColor: createDynamicColors(),
+                backgroundColor: colorData[eachKeys],
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 data: dataLabelsArray[eachKeys]

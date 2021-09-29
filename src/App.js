@@ -53,7 +53,7 @@ function App() {
     <div style={{ padding: 10, marginTop: 20 }}>
       {/* <BarChart /> */}
 
-      <div style={{ display: "flex", flex: 1, justifyContent: 'space-around' }}>
+      <div style={{ display: "flex", flex: 1, justifyContent: 'space-between' }}>
         <div style={{ display: "flex", flexDirection: 'row' }}>
           <div style={{ width: "300px" }}>
             <Doughnut
@@ -222,7 +222,7 @@ function App() {
           </div>
           <div id="js-legend" className="chart-legend"></div>
         </div>
-        <div>
+        <div style={{width : '60%'}}>
           <DataTable notSelectedLabels={notSelectedLabels} />
         </div>
       </div>
