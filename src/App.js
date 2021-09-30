@@ -55,7 +55,7 @@ function App() {
       {/* <BarChart /> */}
 
       <div style={{ display: "flex", flex: 1, justifyContent: 'space-between' }}>
-        <div style={{ display: "flex", flexDirection: 'row',justifyContent :'space-around',alignItems :'center', boxShadow: "1px 1px 1px 1px grey", padding: "5px", width: "39%" }}>
+        <div style={{ display: "flex", flexDirection: 'row',justifyContent :'space-around',alignItems :'center', boxShadow: "1px 1px 1px 1px grey", padding: "5px", width: "48%" }}>
           <div style={{ width: "300px" }}>
             <Doughnut
               ref={myChart}
@@ -221,9 +221,9 @@ function App() {
               }}
             />
           </div>
-          <div id="js-legend" className="chart-legend"></div>
+          <div id="js-legend" style={{width :"250px"}} className="chart-legend"></div>
         </div>
-        <div style={{ width: '60%', boxShadow: "1px 1px 1px 1px grey" }}>
+        <div style={{ width: '51%', boxShadow: "1px 1px 1px 1px grey" }}>
           <DataTable notSelectedLabels={notSelectedLabels} />
         </div>
       </div>
