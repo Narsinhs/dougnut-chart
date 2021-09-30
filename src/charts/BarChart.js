@@ -29,7 +29,7 @@ const BarChart = ({ notSelectedLabels }) => {
     let data = getData();
     console.log(data)
     return (
-        <div style={{ marginTop: "10px",marginRight : "50px" }}>
+        <div style={{ marginTop: "1px",marginRight : "50px" }}>
             <div style={{ marginBottom: "5px", display: 'flex', flex: 1, justifyContent: 'space-around' }}>
                 {renderFilterBox('7 Days Filter', filters.Week, filters.Week === filterType)}
                 {renderFilterBox('30 Days Filter', filters.Month, filters.Month === filterType)}

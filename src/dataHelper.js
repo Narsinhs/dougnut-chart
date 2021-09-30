@@ -188,13 +188,14 @@ export const getDataForDataTable = (keyData) => {
         if (!operatorId.hasOwnProperty(each.operatorId)) {
             operatorId[each.operatorId] = true;
         }
+        return each;
     })
     let result = [];
     Object.keys(operatorId).map((eachId) => {
         let operatorCount = {};
         rawData.data.map((eachData) => {
             if (keyData.includes(eachData.operation)) {
-                return;
+                return eachId;
             }
             if (eachData.operatorId === eachId) {
                 if (operatorCount.hasOwnProperty(eachData.operation)) {
@@ -203,6 +204,7 @@ export const getDataForDataTable = (keyData) => {
                     operatorCount[eachData.operation] = 1;
                 }
             }
+            return eachData;
         })
         Object.keys(operatorCount).map((eachKey) => {
             result.push({
@@ -210,16 +212,9 @@ export const getDataForDataTable = (keyData) => {
                 count: operatorCount[eachKey],
                 name: eachKey
             })
+            return eachKey
         })
+        return eachId;
     })
-    console.log(result)
     return result;
-    // return Object.keys(keyObject).map((each) => {
-    //     // console.log(id)
-    //     // id = id + 1;
-    //     return {
-    //         ...keyObject[each],
-    //         // id: id - 1
-    //     }
-    // })
 }

@@ -8,7 +8,7 @@ import paginationFactory from 'react-bootstrap-table2-paginator';
 import { getDataForDataTable } from '../dataHelper';
 const columns = [{
     dataField: 'operatorId',
-    text: 'Operation ID',
+    text: 'Operator ID',
     sort: true
 }, {
     dataField: 'name',
@@ -34,6 +34,7 @@ const DataTable = ({notSelectedLabels}) => {
                 data={getDataForDataTable(notSelectedLabels)}
                 columns={columns}
                 defaultSorted={defaultSorted}
+                
             />
         </div>
     )
