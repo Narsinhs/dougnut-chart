@@ -67,7 +67,7 @@ const BarChart = ({ notSelectedLabels }) => {
                     },
                     y: {
                         min :0,
-                        max : 100,
+                        max : 10,
                         // display: true,
                         grid:{
                             display : true
