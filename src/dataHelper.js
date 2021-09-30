@@ -1,6 +1,15 @@
 import rawData from "./updatedData.json"
 
 const colorData = {};
+let transformDate = (date) => {
+    let dataDate = date.toString();
+    let year = dataDate.slice(0, 4);
+    let month = dataDate.slice(4, 6);
+    let day = dataDate.slice(6, 8);
+    let updatedDate = new Date(`${month}/${day}/${year}`)
+    return updatedDate;
+
+}
 const createDynamicColors = function () {
     const r = Math.floor(Math.random() * 255);
     const g = Math.floor(Math.random() * 255);
@@ -18,6 +27,7 @@ export const transformRawDataToPieChart = () => {
         } else {
             calculation[each.operation] = 1;
         }
+        return each;
     })
     Object.keys(calculation).map((eachKey) => {
         labels.push(eachKey);
@@ -26,6 +36,7 @@ export const transformRawDataToPieChart = () => {
             colorData[eachKey] = createDynamicColors();
         }
         dynamicColors.push(colorData[eachKey])
+        return eachKey;
     })
 
     return {
@@ -39,7 +50,6 @@ export const transformRawDataToPieChart = () => {
 export const getMonthBarChartData = (dataKey) => {
     let rawMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     let labels = [];
-    let data = [];
     let dataLabels = {};
     let dataLabelsArray = {};
     rawData.data.map((each) => {
@@ -47,21 +57,24 @@ export const getMonthBarChartData = (dataKey) => {
             dataLabels[each.operation] = 0;
             dataLabelsArray[each.operation] = [];
         }
+        return each;
     })
     for (let i = 29; i >= 0; i--) {
         let myDate = new Date(new Date().setDate(new Date().getDate() - i));
         labels.push(`${myDate.getDate()} ${rawMonthName[myDate.getMonth() - 1]} ${myDate.getFullYear()}`)
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
-            let transDate = new Date(eachData.transDate);
+            let transDate = transformDate(eachData.transDate);
             if (transDate.getMonth() === myDate.getMonth() && transDate.getDate() === myDate.getDate() && transDate.getYear() === myDate.getYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
             }
+            return eachData;
         })
         Object.keys(countObject).map((eachKey) => {
             dataLabelsArray[eachKey].push(countObject[eachKey]);
+            return eachKey;
         })
     }
     return {
@@ -79,7 +92,6 @@ export const getMonthBarChartData = (dataKey) => {
 }
 export const getYearBarChartData = (dataKey) => {
     let rawMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let month = new Date().getMonth() - 1;
     let labels = [];
     let dataLabels = {};
     let dataLabelsArray = {};
@@ -88,24 +100,26 @@ export const getYearBarChartData = (dataKey) => {
             dataLabels[each.operation] = 0;
             dataLabelsArray[each.operation] = [];
         }
+        return each;
     })
     for (let i = 11; i >= 0; i--) {
         let myDate = new Date(new Date(new Date().setDate(1)).setMonth(new Date().getMonth() - i));
         labels.push(`${rawMonthName[myDate.getMonth()]} ${myDate.getFullYear()}`);
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
-            let transDate = new Date(eachData.transDate);
+            let transDate = transformDate(eachData.transDate);
             let year = transDate.getFullYear()
             let month = transDate.getMonth();
-            console.log(`${month}/${year} TRANSITION` , `${`${rawMonthName[myDate.getMonth()]} ${myDate.getFullYear()}`}`, month === i && year === myDate.getFullYear() )
             if (month === myDate.getMonth() && year === myDate.getFullYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
             }
+            return eachData;
         })
         Object.keys(countObject).map((eachKey) => {
             dataLabelsArray[eachKey].push(countObject[eachKey]);
+            return eachKey;
         })
     }
     return {
@@ -131,24 +145,27 @@ export const getWeekBarChartData = (dataKey) => {
             dataLabels[each.operation] = 0;
             dataLabelsArray[each.operation] = [];
         }
+        return each;
     })
     for (let i = 6; i >= 0; i--) {
         let myDate = new Date(new Date().setDate(new Date().getDate() - i));
         let label = rawDayNames[myDate.getDay()];
-        label = `${label} (${myDate.getDate()}/${myDate.getMonth()}/${myDate.getFullYear()})`
+        label = `${label} (${myDate.getDate()}/${myDate.getMonth()+1}/${myDate.getFullYear()})`
         labels.push(label);
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
-            let transDate = new Date(eachData.transDate);
+            let transDate = transformDate(eachData.transDate);
             console.log(`${transDate.getMonth()}/${transDate.getDate()}/${transDate.getFullYear()} Transition date`)
             if (transDate.getMonth() === myDate.getMonth() && transDate.getDate() === myDate.getDate() && transDate.getFullYear() === myDate.getFullYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
             }
+            return eachData;
         })
         Object.keys(countObject).map((eachKey) => {
             dataLabelsArray[eachKey].push(countObject[eachKey]);
+            return eachKey
         })
     }
     return {
@@ -169,7 +186,7 @@ export const getDataForDataTable = (keyData) => {
     let keyObject = {}
     rawData.data.map((each) => {
         if (keyData.includes(each.operation)) {
-            return;
+            return each;
         }
         let operation = each.operation;
         if (!keyObject.hasOwnProperty(operation)) {
@@ -177,6 +194,7 @@ export const getDataForDataTable = (keyData) => {
         } else {
             keyObject[operation].count = keyObject[operation].count + 1;
         }
+        return each;
     })
 
     return Object.keys(keyObject).map((each) => {

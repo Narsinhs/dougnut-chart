@@ -43,6 +43,7 @@ function App() {
           notSelected.push(legendItems[index].text);
         }
       }
+      return eachLabel;
     })
     if (legendItems.length === notSelected.length) {
       notSelected = []

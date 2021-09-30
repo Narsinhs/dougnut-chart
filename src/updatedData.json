@@ -4,115 +4,115 @@
       "key": 1,
       "operation": "Create",
       "operatorId": "AF-12",
-      "transDate": 1632989406740
+      "transDate": 20200924
     },
     {
       "key": 2,
       "operation": "Edit",
       "operatorId": "AX-01",
-      "transDate": 1628708400000
+      "transDate": 20210910
     },
     {
       "key": 3,
       "operation": "Create",
       "operatorId": "AF-12",
-      "transDate": 1628535600000
+      "transDate": 20211010
     },
     {
       "key": 4,
       "operation": "Create",
       "operatorId": "DZ-10",
-      "transDate": 1623438000000
+      "transDate": 20150910
     },
     {
       "key": 5,
       "operation": "Edit",
       "operatorId": "AS-05",
-      "transDate": 1628708400000
+      "transDate": 20160910
     },
     {
       "key": 6,
       "operation": "Build",
       "operatorId": "AF-12",
-      "transDate": 1628708400000
+      "transDate": 20210924
     },
     {
       "key": 7,
       "operation": "Cancel",
       "operatorId": "AO-55",
-      "transDate": 1631386800000
+      "transDate": 20200910
     },
     {
       "key": 8,
       "operation": "Create",
       "operatorId": "AI-15",
-      "transDate": 1631386800000
+      "transDate": 20200920
     },
     {
       "key": 9,
       "operation": "Edit",
       "operatorId": "AF-12",
-      "transDate": 1631386800000
+      "transDate": 20200910
     },
     {
       "key": 10,
       "operation": "Call",
       "operatorId": "AF-12",
-      "transDate": 1631905200000
+      "transDate": 20200901
     },
     {
       "key": 11,
       "operation": "Delete",
       "operatorId": "AF-12",
-      "transDate": 1631905200000
+      "transDate": 20200912
     },
     {
       "key": 12,
       "operation": "Create",
       "operatorId": "AX-01",
-      "transDate": 1631905200000
+      "transDate": 20200710
     },
     {
       "key": 13,
       "operation": "View",
       "operatorId": "AX-01",
-      "transDate": 1631905200000
+      "transDate": 202000510
     },
     {
       "key": 14,
       "operation": "View",
       "operatorId": "AX-01",
-      "transDate": 1631905200000
+      "transDate": 20200910
     },
     {
       "key": 15,
       "operation": "Edit",
       "operatorId": "AF-12",
-      "transDate": 1632769200000
+      "transDate": 20200910
     },
     {
       "key": 16,
       "operation": "Create",
       "operatorId": "AZ-20",
-      "transDate": 1632769200000
+      "transDate": 20200910
     },
     {
       "key": 17,
       "operation": "Build",
       "operatorId": "BS-15",
-      "transDate": 1632769200000
+      "transDate": 2020810
     },
     {
       "key": 18,
       "operation": "Create",
       "operatorId": "BH10",
-      "transDate": 1632769200000
+      "transDate": 20190910
     },
     {
       "key": 19,
       "operation": "Call",
       "operatorId": "AF-12",
-      "transDate": 1632769200000
+      "transDate": 202180910
     },
     {
       "key": 20,
