@@ -54,7 +54,7 @@ export const getMonthBarChartData = (dataKey) => {
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
-            if (transDate.getMonth() === myDate.getMonth() && transDate.getDay() === myDate.getDay() && transDate.getYear() === myDate.getYear()) {
+            if (transDate.getMonth() === myDate.getMonth() && transDate.getDate() === myDate.getDate() && transDate.getYear() === myDate.getYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
@@ -78,7 +78,7 @@ export const getMonthBarChartData = (dataKey) => {
     };
 }
 export const getYearBarChartData = (dataKey) => {
-    let rawMonthName = ['January', 'Febrary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'Octuber', 'November', 'December'];
+    let rawMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     let month = new Date().getMonth() - 1;
     let labels = [];
     let dataLabels = {};
@@ -96,8 +96,9 @@ export const getYearBarChartData = (dataKey) => {
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
             let year = transDate.getFullYear()
-            let month = transDate.getMonth() - 1;
-            if (month === i && year === myDate.getFullYear()) {
+            let month = transDate.getMonth();
+            console.log(`${month}/${year} TRANSITION` , `${`${rawMonthName[myDate.getMonth()]} ${myDate.getFullYear()}`}`, month === i && year === myDate.getFullYear() )
+            if (month === myDate.getMonth() && year === myDate.getFullYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }
@@ -121,7 +122,7 @@ export const getYearBarChartData = (dataKey) => {
     };
 }
 export const getWeekBarChartData = (dataKey) => {
-    let rawDayNames = ['Sun', 'Mon', 'Tues', 'Wednes', 'Thrus', 'Fri', 'Sat'];
+    let rawDayNames = ['Sun', 'Mon', 'Tues', 'Wed', 'Thr', 'Fri', 'Sat'];
     let labels = [];
     let dataLabels = {};
     let dataLabelsArray = {};
@@ -139,7 +140,8 @@ export const getWeekBarChartData = (dataKey) => {
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
             let transDate = new Date(eachData.transDate);
-            if (transDate.getMonth() === myDate.getMonth() && transDate.getDay() === myDate.getDay() && transDate.getYear() === myDate.getYear()) {
+            console.log(`${transDate.getMonth()}/${transDate.getDate()}/${transDate.getFullYear()} Transition date`)
+            if (transDate.getMonth() === myDate.getMonth() && transDate.getDate() === myDate.getDate() && transDate.getFullYear() === myDate.getFullYear()) {
                 if (countObject.hasOwnProperty(eachData.operation)) {
                     countObject[eachData.operation] = countObject[eachData.operation] + 1;
                 }

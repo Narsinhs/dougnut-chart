@@ -29,7 +29,7 @@ const DataTable = ({notSelectedLabels}) => {
         <div>
             <BootstrapTable
                 // bootstrap4
-                pagination={ paginationFactory({sizePerPage: 10,sizePerPageList:[10,12]}) }
+                pagination={ paginationFactory({sizePerPage: 5,sizePerPageList:[5]}) }
                 keyField="id"
                 data={getDataForDataTable(notSelectedLabels)}
                 columns={columns}
