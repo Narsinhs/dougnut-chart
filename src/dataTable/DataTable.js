@@ -12,7 +12,7 @@ const columns = [{
     sort: true
 }, {
     dataField: 'name',
-    text: 'Operation Name',
+    text: 'Operation',
     sort: true
 }, {
     dataField: 'count',
