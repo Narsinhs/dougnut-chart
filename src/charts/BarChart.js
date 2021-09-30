@@ -1,10 +1,11 @@
 import React, { useState } from "react"
 import { Bar } from "react-chartjs-2";
-import { getMonthBarChartData, getWeekBarChartData, getYearBarChartData } from "../dataHelper";
+import { getMonthBarChartData, getWeekBarChartData, getYearBarChartData, getYearsBarChartData } from "../dataHelper";
 const filters = {
     "Week": "Week",
     "Month": "Month",
-    "Year": "Year"
+    "Year": "Year",
+    "10Years": "10Years"
 }
 const BarChart = ({ notSelectedLabels }) => {
     const [filterType, setFilterType] = useState(filters.Year)
@@ -14,6 +15,8 @@ const BarChart = ({ notSelectedLabels }) => {
             data = getWeekBarChartData(notSelectedLabels || [])
         } else if (filterType === filters.Month) {
             data = getMonthBarChartData(notSelectedLabels || []);
+        } else if (filterType === filters["10Years"]) {
+            data = getYearsBarChartData(notSelectedLabels || [])
         } else {
             data = getYearBarChartData(notSelectedLabels || []);
         }
@@ -29,14 +32,15 @@ const BarChart = ({ notSelectedLabels }) => {
     let data = getData();
     console.log(data)
     return (
-        <div style={{ marginTop: "1px",marginRight : "50px" }}>
+        <div style={{ marginTop: "1px", marginRight: "50px" }}>
             <div style={{ marginBottom: "5px", display: 'flex', flex: 1, justifyContent: 'space-around' }}>
                 {renderFilterBox('7 Days Filter', filters.Week, filters.Week === filterType)}
                 {renderFilterBox('30 Days Filter', filters.Month, filters.Month === filterType)}
                 {renderFilterBox('Year Filter', filters.Year, filters.Year === filterType)}
+                {renderFilterBox('Year Filter', filters["10Years"], filters["10Years"] === filterType)}
             </div>
-            <Bar data={data} height={70}  options={{
-                
+            <Bar data={data} height={70} options={{
+
                 plugins: {
                     legend: { display: false }
                 },
@@ -45,7 +49,7 @@ const BarChart = ({ notSelectedLabels }) => {
 
                         // type: 'time',
                         grid: {
-                            display : false
+                            display: true
                         }
                         // title: {
                         //     display: true,
@@ -66,11 +70,11 @@ const BarChart = ({ notSelectedLabels }) => {
                         // }
                     },
                     y: {
-                        min :0,
-                        max : 10,
+                        min: 0,
+                        max: 10,
                         // display: true,
-                        grid:{
-                            display : true
+                        grid: {
+                            display: true
                         }
                     }
                 }

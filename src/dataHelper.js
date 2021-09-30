@@ -135,6 +135,50 @@ export const getYearBarChartData = (dataKey) => {
         })
     };
 }
+export const getYearsBarChartData = (dataKey) => {
+    // let rawMonthName = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    let labels = [];
+    let dataLabels = {};
+    let dataLabelsArray = {};
+    rawData.data.map((each) => {
+        if (!dataLabels.hasOwnProperty(each.operation) && !dataKey.includes(each.operation)) {
+            dataLabels[each.operation] = 0;
+            dataLabelsArray[each.operation] = [];
+        }
+        return each;
+    })
+    for (let i = 9; i >= 0; i--) {
+        let myDate = new Date(new Date(new Date().setDate(1)).setFullYear(new Date().getFullYear() - i));
+        labels.push(`${myDate.getFullYear()}`);
+        let countObject = { ...dataLabels };
+        rawData.data.map((eachData) => {
+            let transDate = transformDate(eachData.transDate);
+            let year = transDate.getFullYear()
+            if (year === myDate.getFullYear()) {
+                if (countObject.hasOwnProperty(eachData.operation)) {
+                    countObject[eachData.operation] = countObject[eachData.operation] + 1;
+                }
+            }
+            return eachData;
+        })
+        Object.keys(countObject).map((eachKey) => {
+            dataLabelsArray[eachKey].push(countObject[eachKey]);
+            return eachKey;
+        })
+    }
+    return {
+        labels,
+        datasets: Object.keys(dataLabelsArray).map((eachKeys) => {
+            return {
+                label: eachKeys,
+                backgroundColor: colorData[eachKeys],
+                borderColor: 'rgba(0,0,0,1)',
+                borderWidth: 2,
+                data: dataLabelsArray[eachKeys]
+            }
+        })
+    };
+}
 export const getWeekBarChartData = (dataKey) => {
     let rawDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let labels = [];
