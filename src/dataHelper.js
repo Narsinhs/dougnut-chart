@@ -207,7 +207,7 @@ export const getDataForDataTable = (keyData) => {
         Object.keys(operatorCount).map((eachKey) => {
             result.push({
                 operatorId: eachId,
-                count: 100,
+                count: operatorCount[eachKey],
                 name: eachKey
             })
         })
