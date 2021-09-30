@@ -136,7 +136,7 @@ export const getYearBarChartData = (dataKey) => {
     };
 }
 export const getWeekBarChartData = (dataKey) => {
-    let rawDayNames = ['Sun', 'Mon', 'Tues', 'Wed', 'Thr', 'Fri', 'Sat'];
+    let rawDayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     let labels = [];
     let dataLabels = {};
     let dataLabelsArray = {};
@@ -150,7 +150,7 @@ export const getWeekBarChartData = (dataKey) => {
     for (let i = 6; i >= 0; i--) {
         let myDate = new Date(new Date().setDate(new Date().getDate() - i));
         let label = rawDayNames[myDate.getDay()];
-        label = `${label} (${myDate.getDate()}/${myDate.getMonth()+1}/${myDate.getFullYear()})`
+        label = `${label} (${myDate.getDate()}/${myDate.getMonth() + 1}/${myDate.getFullYear()})`
         labels.push(label);
         let countObject = { ...dataLabels };
         rawData.data.map((eachData) => {
@@ -182,27 +182,44 @@ export const getWeekBarChartData = (dataKey) => {
     };
 }
 export const getDataForDataTable = (keyData) => {
-    let id = 1;
-    let keyObject = {}
+    // let id = 1;
+    let operatorId = {};
     rawData.data.map((each) => {
-        if (keyData.includes(each.operation)) {
-            return each;
-        }
-        let operation = each.operation;
-        if (!keyObject.hasOwnProperty(operation)) {
-            keyObject[operation] = { count: 1, name: operation };
-        } else {
-            keyObject[operation].count = keyObject[operation].count + 1;
-        }
-        return each;
-    })
-
-    return Object.keys(keyObject).map((each) => {
-        console.log(id)
-        id = id + 1;
-        return {
-            ...keyObject[each],
-            id: id - 1
+        if (!operatorId.hasOwnProperty(each.operatorId)) {
+            operatorId[each.operatorId] = true;
         }
     })
+    let result = [];
+    Object.keys(operatorId).map((eachId) => {
+        let operatorCount = {};
+        rawData.data.map((eachData) => {
+            if (keyData.includes(eachData.operation)) {
+                return;
+            }
+            if (eachData.operatorId === eachId) {
+                if (operatorCount.hasOwnProperty(eachData.operation)) {
+                    operatorCount[eachData.operation] += 1;
+                } else {
+                    operatorCount[eachData.operation] = 1;
+                }
+            }
+        })
+        Object.keys(operatorCount).map((eachKey) => {
+            result.push({
+                operatorId: eachId,
+                count: 100,
+                name: eachKey
+            })
+        })
+    })
+    console.log(result)
+    return result;
+    // return Object.keys(keyObject).map((each) => {
+    //     // console.log(id)
+    //     // id = id + 1;
+    //     return {
+    //         ...keyObject[each],
+    //         // id: id - 1
+    //     }
+    // })
 }

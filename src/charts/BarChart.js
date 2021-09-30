@@ -6,7 +6,7 @@ const filters = {
     "Month": "Month",
     "Year": "Year"
 }
-const BarChart = ({notSelectedLabels}) => {
+const BarChart = ({ notSelectedLabels }) => {
     const [filterType, setFilterType] = useState(filters.Year)
     const getData = () => {
         let data = [];
@@ -29,15 +29,50 @@ const BarChart = ({notSelectedLabels}) => {
     let data = getData();
     console.log(data)
     return (
-        <div style={{ marginTop: "100px" }}>
-            <div style={{ marginBottom: "20px", display: 'flex', flex: 1, justifyContent: 'space-around' }}>
-                {renderFilterBox('7 Days Filter',filters.Week,filters.Week === filterType)}
-                {renderFilterBox('30 Days Filter',filters.Month,filters.Month === filterType)}
-                {renderFilterBox('Year Filter',filters.Year,filters.Year === filterType)}
+        <div style={{ marginTop: "10px",marginRight : "50px" }}>
+            <div style={{ marginBottom: "5px", display: 'flex', flex: 1, justifyContent: 'space-around' }}>
+                {renderFilterBox('7 Days Filter', filters.Week, filters.Week === filterType)}
+                {renderFilterBox('30 Days Filter', filters.Month, filters.Month === filterType)}
+                {renderFilterBox('Year Filter', filters.Year, filters.Year === filterType)}
             </div>
-            <Bar data={data} options={{
+            <Bar data={data} height={70}  options={{
+                
                 plugins: {
                     legend: { display: false }
+                },
+                scales: {
+                    x: {
+
+                        // type: 'time',
+                        grid: {
+                            display : false
+                        }
+                        // title: {
+                        //     display: true,
+                        //     text: 'Date'
+                        // },
+                        // ticks: {
+                        //     major: {
+                        //         enabled: true
+                        //     },
+                        //     color: (context) => context.tick && context.tick.major && '#FF0000',
+                        //     font: function (context) {
+                        //         if (context.tick && context.tick.major) {
+                        //             return {
+                        //                 weight: 'bold'
+                        //             };
+                        //         }
+                        //     }
+                        // }
+                    },
+                    y: {
+                        min :0,
+                        max : 100,
+                        // display: true,
+                        grid:{
+                            display : true
+                        }
+                    }
                 }
             }} />
         </div>

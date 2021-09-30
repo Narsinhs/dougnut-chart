@@ -7,7 +7,7 @@ import "react-bootstrap-table-next/dist/react-bootstrap-table2.min.css";
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import { getDataForDataTable } from '../dataHelper';
 const columns = [{
-    dataField: 'id',
+    dataField: 'operatorId',
     text: 'Operation ID',
     sort: true
 }, {
